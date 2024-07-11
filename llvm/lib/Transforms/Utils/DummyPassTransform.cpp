@@ -1,11 +1,17 @@
 
 #include "llvm/Transforms/Utils/DummyPassTransform.h"
 #include "llvm/IR/Function.h"
-#include "llvm/IR/DebugInfoMetadata.h"
-#include "llvm/IR/DebugInfo.h"
+#include "llvm/IR/BasicBlock.h"
 #include "llvm/IR/Instructions.h"
-#include "llvm/IR/DebugProgramInstruction.h"
-#include "llvm/IR/Instruction.h"
+#include "llvm/IR/PassManager.h"
+#include "llvm/Pass.h"
+#include "llvm/Passes/PassBuilder.h"
+#include "llvm/Passes/PassPlugin.h"
+#include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Debug.h"
+#include "llvm/Support/raw_ostream.h"
+#include "llvm/Passes/PassBuilder.h"
+#include "llvm/Passes/PassPlugin.h"
 
 
 
@@ -38,6 +44,4 @@ PreservedAnalyses DummyPassTransform::run(Function &F,
     // Indicate all analyses are preserved
     return PreservedAnalyses::all();
 }
-
-
 

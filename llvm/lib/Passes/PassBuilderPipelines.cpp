@@ -139,6 +139,8 @@
 #include "llvm/Transforms/Vectorize/LoopVectorize.h"
 #include "llvm/Transforms/Vectorize/SLPVectorizer.h"
 #include "llvm/Transforms/Vectorize/VectorCombine.h"
+#include "llvm/Transforms/Utils/DummyPassTransform.h"
+
 
 using namespace llvm;
 
@@ -1566,6 +1568,9 @@ PassBuilder::buildPerModuleDefaultPipeline(OptimizationLevel Level,
   // Force any function attributes we want the rest of the pipeline to observe.
   MPM.addPass(ForceFunctionAttrsPass());
 
+  // if (Level == OptimizationLevel::O2)
+  //     MPM.addPass(createModuleToFunctionPassAdaptor(DummyPassTransform())); 
+
   if (PGOOpt && PGOOpt->DebugInfoForProfiling)
     MPM.addPass(createModuleToFunctionPassAdaptor(AddDiscriminatorsPass()));
 
@@ -1836,6 +1841,7 @@ PassBuilder::buildLTODefaultPipeline(OptimizationLevel Level,
 
     return MPM;
   }
+  
 
   // Optimize globals to try and fold them into constants.
   MPM.addPass(GlobalOptPass());

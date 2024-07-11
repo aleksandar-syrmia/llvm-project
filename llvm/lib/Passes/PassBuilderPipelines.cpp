@@ -1568,8 +1568,8 @@ PassBuilder::buildPerModuleDefaultPipeline(OptimizationLevel Level,
   // Force any function attributes we want the rest of the pipeline to observe.
   MPM.addPass(ForceFunctionAttrsPass());
 
-  // if (Level == OptimizationLevel::O2)
-  //     MPM.addPass(createModuleToFunctionPassAdaptor(DummyPassTransform())); 
+  if (Level == OptimizationLevel::O2)
+      MPM.addPass(createModuleToFunctionPassAdaptor(DummyPassTransform())); 
 
   if (PGOOpt && PGOOpt->DebugInfoForProfiling)
     MPM.addPass(createModuleToFunctionPassAdaptor(AddDiscriminatorsPass()));
